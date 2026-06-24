@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: db-segura
+    restart: always
+    environment:
+      POSTGRES_DB: sistema_db
+      POSTGRES_USER: admin_user
+      POSTGRES_PASSWORD: password_seguro123
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - red-backend
+
+  ventas-service:
+    image: benjamin239/backend-ventas:latest
+    container_name: api-ventas
+    restart: always
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/sistema_db
+      - SPRING_DATASOURCE_USERNAME=admin_user
+      - SPRING_DATASOURCE_PASSWORD=password_seguro123
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db
+    networks:
+      - red-backend
+
+  despachos-service:
+    image: benjamin239/backend-despachos:latest
+    container_name: api-despachos
+    restart: always
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/sistema_db
+      - SPRING_DATASOURCE_USERNAME=admin_user
+      - SPRING_DATASOURCE_PASSWORD=password_seguro123
+    ports:
+      - "8082:8082"
+    depends_on:
+      - db
+    networks:
+      - red-backend
+
+volumes:
+  db_data:
+
+networks:
+  red-backend:
+    driver: bridge
