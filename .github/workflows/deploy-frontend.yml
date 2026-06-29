@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'frontend/**'
+      - 'frontend/front_despacho/**' 
 
 env:
   AWS_REGION: us-east-1
@@ -35,6 +35,6 @@ jobs:
 
     - name: Build, tag, and push image to Amazon ECR
       run: |
-        cd frontend
+        cd frontend/front_despacho     # <-- Modificado aquí
         docker build -t ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }} .
         docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
