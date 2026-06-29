@@ -5,6 +5,7 @@ on:
     branches: [ "main" ]
     paths:
       - 'backend/back-Despachos_SpringBoot/**'
+  workflow_dispatch:
 
 env:
   AWS_REGION: us-east-1
