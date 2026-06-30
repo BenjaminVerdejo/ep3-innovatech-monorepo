@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: innovatech-frontend
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: innovatech-frontend
+  template:
+    metadata:
+      labels:
+        app: innovatech-frontend
+    spec:
+      containers:
+      - name: frontend
+        # ⚠️ REEMPLAZA "TU_ID_DE_CUENTA" con tus 12 dígitos de AWS (ej: 304744337XXX)
+        image: TU_ID_DE_CUENTA.dkr.ecr.us-east-1.amazonaws.com/innovatech-frontend:latest
+        ports:
+        - containerPort: 80 # Puerto estándar en el que corre el contenedor del Front
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: innovatech-frontend-service
+  namespace: default
+spec:
+  type: LoadBalancer # 🚀 Esto le dice a AWS que cree una URL pública para el profesor
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: innovatech-frontend

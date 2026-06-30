@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: innovatech-backend
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: innovatech-backend
+  template:
+    metadata:
+      labels:
+        app: innovatech-backend
+    spec:
+      containers:
+      - name: backend
+        # ⚠️ REEMPLAZA "TU_ID_DE_CUENTA" con tus 12 dígitos de AWS (ej: 304744337XXX)
+        image: TU_ID_DE_CUENTA.dkr.ecr.us-east-1.amazonaws.com/innovatech-backend:latest
+        ports:
+        - containerPort: 5000 # Si tu backend usa otro puerto (como 3000 o 8080), cámbialo aquí
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: innovatech-backend-service
+  namespace: default
+spec:
+  type: ClusterIP # Esto hace que el backend solo sea visible internamente para el frontend
+  ports:
+  - port: 5000
+    targetPort: 5000
+  selector:
+    app: innovatech-backend
