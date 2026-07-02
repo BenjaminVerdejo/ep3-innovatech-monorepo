@@ -26,8 +26,7 @@ metadata:
   name: innovatech-backend-service
   namespace: default
 spec:
-  type: ClusterIP # Esto hace que el backend solo sea visible internamente para el frontend
-  ports:
+  type: ClusterIP 
   - port: 5000
     targetPort: 5000
   selector:
