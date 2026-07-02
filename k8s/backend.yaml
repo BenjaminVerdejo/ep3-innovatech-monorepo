@@ -15,10 +15,10 @@ spec:
     spec:
       containers:
       - name: backend
-        # ⚠️ REEMPLAZA "TU_ID_DE_CUENTA" con tus 12 dígitos de AWS (ej: 304744337XXX)
-        image: TU_ID_DE_CUENTA.dkr.ecr.us-east-1.amazonaws.com/innovatech-backend:latest
+        
+        image: 304744337786.dkr.ecr.us-east-1.amazonaws.com/innovatech-backend:latest
         ports:
-        - containerPort: 5000 # Si tu backend usa otro puerto (como 3000 o 8080), cámbialo aquí
+        - containerPort: 5000 
 ---
 apiVersion: v1
 kind: Service
